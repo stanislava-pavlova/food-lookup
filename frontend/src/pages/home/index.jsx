@@ -6,13 +6,13 @@ import {
     Input,
     InputGroup,
     InputRightElement,
-    Text,
     Spinner,
     Th,
     Button,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import FoodTable from '../../components/food-table';
+import Alert from '../../components/alert';
 
 const Homepage = () => {
     const [foods, setFoods] = useState([]);
@@ -33,7 +33,7 @@ const Homepage = () => {
                 setFoods(response.data);
             })
             .catch(function (error) {
-                setError('Oops, something went wrong. Try again later');
+                setError('Oops, something went wrong.');
                 console.error(error);
             })
             .finally(function () {
@@ -72,7 +72,7 @@ const Homepage = () => {
     }
 
     if (error) {
-        return <Text>{error}</Text>;
+        return <Alert status="error" message={error} />;
     }
 
     return (
