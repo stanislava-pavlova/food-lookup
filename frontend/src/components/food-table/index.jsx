@@ -7,9 +7,10 @@ import {
 	Th,
 	Td,
 	TableContainer,
+	Tooltip,
 } from '@chakra-ui/react';
 
-const FoodTable = ({ foods, onFoodClick, title, children }) => {
+const FoodTable = ({ foods, onFoodClick, tooltipLabel, children }) => {
 	const calculateTotal = (prop) => {
 		return foods
 			?.reduce((total, food) => total + (food[prop] || 0), 0)
@@ -31,17 +32,21 @@ const FoodTable = ({ foods, onFoodClick, title, children }) => {
 				</Thead>
 				<Tbody>
 					{foods?.map((food, index) => (
-						<Tr
+						<Tooltip
 							key={index}
-							onClick={() => onFoodClick(food, index)}
-							title={title}
+							hasArrow
+							label={tooltipLabel}
+							bg="gray.600"
+							placement="top-start"
 						>
-							<Td>{food.description}</Td>
-							<Td>{food.calories.toFixed(2)}</Td>
-							<Td>{(food.protein || 0).toFixed(2)}</Td>
-							<Td>{(food.fat || 0).toFixed(2)}</Td>
-							<Td>{(food.carbs || 0).toFixed(2)}</Td>
-						</Tr>
+							<Tr onClick={() => onFoodClick(food, index)} cursor="pointer">
+								<Td>{food.description}</Td>
+								<Td>{food.calories.toFixed(2)}</Td>
+								<Td>{(food.protein || 0).toFixed(2)}</Td>
+								<Td>{(food.fat || 0).toFixed(2)}</Td>
+								<Td>{(food.carbs || 0).toFixed(2)}</Td>
+							</Tr>
+						</Tooltip>
 					))}
 				</Tbody>
 				<Tfoot>

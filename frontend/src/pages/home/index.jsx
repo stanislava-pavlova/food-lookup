@@ -79,7 +79,7 @@ const Homepage = () => {
 				<FoodTable
 					foods={selectedFoods}
 					onFoodClick={removeFoodFromTable}
-					title="Remove Item"
+					tooltipLabel="Remove Food"
 				>
 					<Th px="6" border="none">
 						Selected Foods
@@ -89,7 +89,7 @@ const Homepage = () => {
 					<FoodTable
 						foods={filteredFoods}
 						onFoodClick={addFoodToTable}
-						title="Add Item"
+						tooltipLabel="Add Food"
 					>
 						<Th>
 							<InputGroup>
