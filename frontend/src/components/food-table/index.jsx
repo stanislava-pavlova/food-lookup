@@ -9,7 +9,7 @@ import {
 	TableContainer,
 } from '@chakra-ui/react';
 
-const FoodTable = ({ foods, children }) => {
+const FoodTable = ({ foods, children, onFoodClick, title }) => {
 	return (
 		<TableContainer>
 			<Table border="2px" borderColor="LightGrey">
@@ -26,7 +26,7 @@ const FoodTable = ({ foods, children }) => {
 				<Tbody>
 					{foods?.map((food, index) => {
 						return (
-							<Tr key={index}>
+							<Tr key={index} onClick={() => onFoodClick(food)} title={title}>
 								<Td>{food.description}</Td>
 								<Td>{food.calories.toFixed(2)}</Td>
 								<Td>{(food.protein || 0).toFixed(2)}</Td>

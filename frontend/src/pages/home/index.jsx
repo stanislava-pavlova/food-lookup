@@ -17,6 +17,7 @@ const Homepage = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 	const [searchTerm, setSearchTerm] = useState('');
+	const [selectedFoods, setSelectedFoods] = useState([]);
 
 	useEffect(() => {
 		fetchFoods();
@@ -46,6 +47,16 @@ const Homepage = () => {
 		food.description.toLowerCase().includes(searchTerm.toLowerCase())
 	);
 
+	const addFoodToTable = (food) => {
+		setSelectedFoods([...selectedFoods, food]);
+	};
+
+	const removeFoodFromTable = (food) => {
+		const updatedSelectedFoods = [...selectedFoods];
+		updatedSelectedFoods.splice(food, 1);
+		setSelectedFoods(updatedSelectedFoods);
+	};
+
 	if (isLoading) {
 		return (
 			<Spinner
@@ -61,15 +72,25 @@ const Homepage = () => {
 	if (error) {
 		return <Text>{error}</Text>;
 	}
-	
+
 	return (
 		<>
 			<Box>
-				<FoodTable>
-					<Th px="6">Selected Foods</Th>
+				<FoodTable
+					foods={selectedFoods}
+					onFoodClick={removeFoodFromTable}
+					title="Remove Item"
+				>
+					<Th px="6" border="none">
+						Selected Foods
+					</Th>
 				</FoodTable>
 				<Box mt={10}>
-					<FoodTable foods={filteredFoods}>
+					<FoodTable
+						foods={filteredFoods}
+						onFoodClick={addFoodToTable}
+						title="Add Item"
+					>
 						<Th>
 							<InputGroup>
 								<Input
