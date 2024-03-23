@@ -81,7 +81,7 @@ const Homepage = () => {
 					onFoodClick={removeFoodFromTable}
 					tooltipLabel="Remove Food"
 				>
-					<Th px="6" border="none">
+					<Th px="6" colSpan={6}>
 						Selected Foods
 					</Th>
 				</FoodTable>
@@ -91,8 +91,8 @@ const Homepage = () => {
 						onFoodClick={addFoodToTable}
 						tooltipLabel="Add Food"
 					>
-						<Th>
-							<InputGroup>
+						<Th colSpan={6}>
+							<InputGroup width="50%">
 								<Input
 									placeholder="Search foods..."
 									value={searchTerm}
