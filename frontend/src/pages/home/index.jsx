@@ -1,6 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Box, Input, InputGroup, InputRightElement, Text, Spinner, Th } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import {
+    Box,
+    Input,
+    InputGroup,
+    InputRightElement,
+    Text,
+    Spinner,
+    Th,
+    Button,
+} from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import FoodTable from '../../components/food-table';
 
@@ -98,6 +108,10 @@ const Homepage = () => {
                     </FoodTable>
                 </Box>
             </Box>
+
+            <Button as={Link} to="/add-food" colorScheme="teal" variant="solid" mt={6}>
+                Add More Food Items
+            </Button>
         </>
     );
 };
