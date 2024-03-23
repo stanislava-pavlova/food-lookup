@@ -16,6 +16,7 @@ const Homepage = () => {
 	const [foods, setFoods] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
+	const [searchTerm, setSearchTerm] = useState('');
 
 	useEffect(() => {
 		fetchFoods();
@@ -36,6 +37,14 @@ const Homepage = () => {
 				setIsLoading(false);
 			});
 	};
+
+	const handleSearchInputChange = (event) => {
+		setSearchTerm(event.target.value);
+	};
+
+	const filteredFoods = foods.filter((food) =>
+		food.description.toLowerCase().includes(searchTerm.toLowerCase())
+	);
 
 	if (isLoading) {
 		return (
@@ -60,13 +69,15 @@ const Homepage = () => {
 					<Th px="6">Selected Foods</Th>
 				</FoodTable>
 				<Box mt={10}>
-					<FoodTable foods={foods}>
+					<FoodTable foods={filteredFoods}>
 						<Th>
 							<InputGroup>
 								<Input
 									isInvalid
 									errorBorderColor="crimson"
 									placeholder="Search foods..."
+									value={searchTerm}
+									onChange={handleSearchInputChange}
 								/>
 								<InputRightElement>
 									<SearchIcon />
