@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import {
 	Box,
 	Input,
@@ -10,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import FoodTable from '../../components/food-table';
-import { useEffect, useState } from 'react';
 
 const Homepage = () => {
 	const [foods, setFoods] = useState([]);
@@ -51,9 +51,9 @@ const Homepage = () => {
 		setSelectedFoods([...selectedFoods, food]);
 	};
 
-	const removeFoodFromTable = (food) => {
+	const removeFoodFromTable = (_, index) => {
 		const updatedSelectedFoods = [...selectedFoods];
-		updatedSelectedFoods.splice(food, 1);
+		updatedSelectedFoods.splice(index, 1);
 		setSelectedFoods(updatedSelectedFoods);
 	};
 
@@ -94,8 +94,6 @@ const Homepage = () => {
 						<Th>
 							<InputGroup>
 								<Input
-									isInvalid
-									errorBorderColor="crimson"
 									placeholder="Search foods..."
 									value={searchTerm}
 									onChange={handleSearchInputChange}

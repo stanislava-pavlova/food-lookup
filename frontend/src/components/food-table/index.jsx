@@ -9,7 +9,13 @@ import {
 	TableContainer,
 } from '@chakra-ui/react';
 
-const FoodTable = ({ foods, children, onFoodClick, title }) => {
+const FoodTable = ({ foods, onFoodClick, title, children }) => {
+	const calculateTotal = (prop) => {
+		return foods
+			?.reduce((total, food) => total + (food[prop] || 0), 0)
+			.toFixed(2);
+	};
+
 	return (
 		<TableContainer>
 			<Table border="2px" borderColor="LightGrey">
@@ -24,41 +30,27 @@ const FoodTable = ({ foods, children, onFoodClick, title }) => {
 					</Tr>
 				</Thead>
 				<Tbody>
-					{foods?.map((food, index) => {
-						return (
-							<Tr key={index} onClick={() => onFoodClick(food)} title={title}>
-								<Td>{food.description}</Td>
-								<Td>{food.calories.toFixed(2)}</Td>
-								<Td>{(food.protein || 0).toFixed(2)}</Td>
-								<Td>{(food.fat || 0).toFixed(2)}</Td>
-								<Td>{(food.carbs || 0).toFixed(2)}</Td>
-							</Tr>
-						);
-					})}
+					{foods?.map((food, index) => (
+						<Tr
+							key={index}
+							onClick={() => onFoodClick(food, index)}
+							title={title}
+						>
+							<Td>{food.description}</Td>
+							<Td>{food.calories.toFixed(2)}</Td>
+							<Td>{(food.protein || 0).toFixed(2)}</Td>
+							<Td>{(food.fat || 0).toFixed(2)}</Td>
+							<Td>{(food.carbs || 0).toFixed(2)}</Td>
+						</Tr>
+					))}
 				</Tbody>
 				<Tfoot>
 					<Tr>
 						<Th>Total</Th>
-						<Th>
-							{foods
-								?.reduce((total, food) => total + (food.calories || 0), 0)
-								.toFixed(2)}
-						</Th>
-						<Th>
-							{foods
-								?.reduce((total, food) => total + (food.protein || 0), 0)
-								.toFixed(2)}
-						</Th>
-						<Th>
-							{foods
-								?.reduce((total, food) => total + (food.fat || 0), 0)
-								.toFixed(2)}
-						</Th>
-						<Th>
-							{foods
-								?.reduce((total, food) => total + (food.carbs || 0), 0)
-								.toFixed(2)}
-						</Th>
+						<Th>{calculateTotal('calories')}</Th>
+						<Th>{calculateTotal('protein')}</Th>
+						<Th>{calculateTotal('fat')}</Th>
+						<Th>{calculateTotal('carbs')}</Th>
 					</Tr>
 				</Tfoot>
 			</Table>
