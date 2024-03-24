@@ -6,7 +6,7 @@ const FoodTable = ({ foods, onFoodClick, tooltipLabel, children }) => {
     };
 
     return (
-        <TableContainer>
+        <TableContainer overflowY="scroll" maxHeight="500px">
             <Table border="2px" borderColor="LightGrey">
                 <Thead>
                     <Tr>{children}</Tr>

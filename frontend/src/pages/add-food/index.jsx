@@ -1,7 +1,16 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, FormControl, FormLabel, Heading, Input, Spinner } from '@chakra-ui/react';
+import {
+    Box,
+    Button,
+    Container,
+    FormControl,
+    FormLabel,
+    Heading,
+    Input,
+    Spinner,
+} from '@chakra-ui/react';
 import Alert from '../../components/alert';
 
 const AddFood = () => {
@@ -46,42 +55,44 @@ const AddFood = () => {
     }
 
     return (
-        <Box width="50%">
-            <Heading textAlign="center">Add Food Item</Heading>
-            {alertMessage && <Alert status={alertType} message={alertMessage} />}
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <FormControl isRequired mt={4}>
-                    <FormLabel>Description</FormLabel>
-                    <Input {...register('description', { required: true })} />
-                </FormControl>
-                <FormControl isRequired mt={4}>
-                    <FormLabel>Calories</FormLabel>
-                    <Input
-                        type="number"
-                        step="any"
-                        min={0}
-                        {...register('calories', { required: true })}
-                    />
-                </FormControl>
-                <FormControl mt={4}>
-                    <FormLabel>Protein</FormLabel>
-                    <Input type="number" step="any" min={0} {...register('protein')} />
-                </FormControl>
-                <FormControl mt={4}>
-                    <FormLabel>Fat</FormLabel>
-                    <Input type="number" step="any" min={0} {...register('fat')} />
-                </FormControl>
-                <FormControl mt={4}>
-                    <FormLabel>Carbs</FormLabel>
-                    <Input type="number" step="any" min={0} {...register('carbs')} />
-                </FormControl>
-                <Box display="flex" justifyContent="center" mt={4}>
-                    <Button type="submit" colorScheme="teal" disabled={isLoading}>
-                        Add
-                    </Button>
-                </Box>
-            </form>
-        </Box>
+        <Container maxW="1200px" py="10" centerContent>
+            <Box width="50%">
+                <Heading textAlign="center">Add Food Item</Heading>
+                {alertMessage && <Alert status={alertType} message={alertMessage} />}
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <FormControl isRequired mt={4}>
+                        <FormLabel>Description</FormLabel>
+                        <Input {...register('description', { required: true })} />
+                    </FormControl>
+                    <FormControl isRequired mt={4}>
+                        <FormLabel>Calories</FormLabel>
+                        <Input
+                            type="number"
+                            step="any"
+                            min={0}
+                            {...register('calories', { required: true })}
+                        />
+                    </FormControl>
+                    <FormControl mt={4}>
+                        <FormLabel>Protein</FormLabel>
+                        <Input type="number" step="any" min={0} {...register('protein')} />
+                    </FormControl>
+                    <FormControl mt={4}>
+                        <FormLabel>Fat</FormLabel>
+                        <Input type="number" step="any" min={0} {...register('fat')} />
+                    </FormControl>
+                    <FormControl mt={4}>
+                        <FormLabel>Carbs</FormLabel>
+                        <Input type="number" step="any" min={0} {...register('carbs')} />
+                    </FormControl>
+                    <Box display="flex" justifyContent="center" mt={4}>
+                        <Button type="submit" colorScheme="teal" disabled={isLoading}>
+                            Add
+                        </Button>
+                    </Box>
+                </form>
+            </Box>
+        </Container>
     );
 };
 

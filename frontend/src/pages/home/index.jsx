@@ -9,6 +9,7 @@ import {
     Spinner,
     Th,
     Button,
+    Container,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import FoodTable from '../../components/food-table';
@@ -76,7 +77,7 @@ const Homepage = () => {
     }
 
     return (
-        <>
+        <Container maxW="1200px" py="10" centerContent>
             <Box>
                 <FoodTable
                     foods={selectedFoods}
@@ -87,7 +88,7 @@ const Homepage = () => {
                         Selected Foods
                     </Th>
                 </FoodTable>
-                <Box mt={10}>
+                <Box mt={14}>
                     <FoodTable
                         foods={filteredFoods}
                         onFoodClick={addFoodToTable}
@@ -112,7 +113,7 @@ const Homepage = () => {
             <Button as={Link} to="/add-food" colorScheme="teal" variant="solid" mt={6}>
                 Add More Food Items
             </Button>
-        </>
+        </Container>
     );
 };
 
