@@ -24,7 +24,7 @@ const FoodTable = ({ foods, onFoodClick, tooltipLabel, children }) => {
                             key={index}
                             hasArrow
                             label={tooltipLabel}
-                            bg="gray.600"
+                            bg="teal"
                             placement="top-start"
                         >
                             <Tr onClick={() => onFoodClick(food, index)} cursor="pointer">
