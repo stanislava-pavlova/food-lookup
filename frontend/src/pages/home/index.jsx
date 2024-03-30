@@ -10,6 +10,7 @@ import {
     Th,
     Button,
     Container,
+    Flex,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import FoodTable from '../../components/food-table';
@@ -37,9 +38,7 @@ const Homepage = () => {
                 setError('Oops, something went wrong.');
                 console.error(error);
             })
-            .finally(function () {
-                setIsLoading(false);
-            });
+            .finally(() => setIsLoading(false));
     };
 
     const handleSearchInputChange = (event) => {
@@ -62,13 +61,15 @@ const Homepage = () => {
 
     if (isLoading) {
         return (
-            <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
-            />
+            <Flex justifyContent="center" alignItems="center" mt={4}>
+                <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="xl"
+                />
+            </Flex>
         );
     }
 

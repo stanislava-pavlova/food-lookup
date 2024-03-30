@@ -5,6 +5,7 @@ import {
     Box,
     Button,
     Container,
+    Flex,
     FormControl,
     FormLabel,
     Heading,
@@ -39,25 +40,24 @@ const AddFood = () => {
                 showAlert('error', 'Oops, something went wrong.');
                 console.error(error);
             })
-            .finally(setIsLoading(false));
+            .finally(() => setIsLoading(false));
     };
-
-    if (isLoading) {
-        return (
-            <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
-            />
-        );
-    }
 
     return (
         <Container maxW="1200px" py="10" centerContent>
             <Box width="50%">
                 <Heading textAlign="center">Add Food Item</Heading>
+                {isLoading && (
+                    <Flex justifyContent="center" alignItems="center" mt={4}>
+                        <Spinner
+                            thickness="4px"
+                            speed="0.65s"
+                            emptyColor="gray.200"
+                            color="blue.500"
+                            size="xl"
+                        />
+                    </Flex>
+                )}
                 {alertMessage && <Alert status={alertType} message={alertMessage} />}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <FormControl isRequired mt={4}>
@@ -86,7 +86,7 @@ const AddFood = () => {
                         <Input type="number" step="any" min={0} {...register('carbs')} />
                     </FormControl>
                     <Box display="flex" justifyContent="center" mt={4}>
-                        <Button type="submit" colorScheme="teal" disabled={isLoading}>
+                        <Button type="submit" colorScheme="teal" isDisabled={isLoading}>
                             Add
                         </Button>
                     </Box>
