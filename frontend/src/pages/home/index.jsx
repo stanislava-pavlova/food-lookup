@@ -18,13 +18,17 @@ import Alert from '../../components/alert';
 
 const Homepage = () => {
     const [foods, setFoods] = useState([]);
+    const [selectedFoods, setSelectedFoods] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedFoods, setSelectedFoods] = useState([]);
 
     useEffect(() => {
         fetchFoods();
+        const storedSelectedFoods = localStorage.getItem('selectedFoods');
+        if (storedSelectedFoods) {
+            setSelectedFoods(JSON.parse(storedSelectedFoods));
+        }
     }, []);
 
     const fetchFoods = async () => {
@@ -51,12 +55,14 @@ const Homepage = () => {
 
     const addFoodToTable = (food) => {
         setSelectedFoods([...selectedFoods, food]);
+        localStorage.setItem('selectedFoods', JSON.stringify([...selectedFoods, food]));
     };
 
     const removeFoodFromTable = (_, index) => {
         const updatedSelectedFoods = [...selectedFoods];
         updatedSelectedFoods.splice(index, 1);
         setSelectedFoods(updatedSelectedFoods);
+        localStorage.setItem('selectedFoods', JSON.stringify(updatedSelectedFoods));
     };
 
     if (isLoading) {
