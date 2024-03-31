@@ -54,8 +54,25 @@ const Homepage = () => {
     );
 
     const addFoodToTable = (food) => {
-        setSelectedFoods([...selectedFoods, food]);
-        localStorage.setItem('selectedFoods', JSON.stringify([...selectedFoods, food]));
+        const existingFoodIndex = selectedFoods.findIndex((item) => item.id === food.id);
+
+        if (existingFoodIndex !== -1) {
+            const updatedSelectedFoods = [...selectedFoods];
+            updatedSelectedFoods[existingFoodIndex] = {
+                ...updatedSelectedFoods[existingFoodIndex],
+                quantity: (updatedSelectedFoods[existingFoodIndex].quantity || 1) + 1,
+                calories: (updatedSelectedFoods[existingFoodIndex].calories || 0) + food.calories,
+                protein:
+                    (updatedSelectedFoods[existingFoodIndex].protein || 0) + (food.protein || 0),
+                fat: (updatedSelectedFoods[existingFoodIndex].fat || 0) + (food.fat || 0),
+                carbs: (updatedSelectedFoods[existingFoodIndex].carbs || 0) + (food.carbs || 0),
+            };
+            setSelectedFoods(updatedSelectedFoods);
+            localStorage.setItem('selectedFoods', JSON.stringify(updatedSelectedFoods));
+        } else {
+            setSelectedFoods([...selectedFoods, { ...food, quantity: 1 }]);
+            localStorage.setItem('selectedFoods', JSON.stringify([...selectedFoods, food]));
+        }
     };
 
     const removeFoodFromTable = (_, index) => {
@@ -90,6 +107,7 @@ const Homepage = () => {
                     foods={selectedFoods}
                     onFoodClick={removeFoodFromTable}
                     tooltipLabel="Remove Food"
+                    displayQuantity
                 >
                     <Th px="6" colSpan={6}>
                         Selected Foods
